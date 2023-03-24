@@ -474,3 +474,38 @@ addListener();
 loadAddDataFromStorage();
 updateSummaryTime();
 updateStorage();
+
+
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+    console.log("chrome listener triggered in background.js")
+    if (request.action === "sendBrowserActivityData") {
+        console.log("triggering sendBrowserActivityData function");
+        sendBrowserActivityData();
+    }
+});
+
+
+function sendBrowserActivityData() {
+    // const backendUrl = "https://your-backend-url.com/api/browser-activity";
+    console.log(tabs)
+  
+    const browserActivityData = tabs.map(tab => {
+      return {
+        url: tab.url,
+        days: tab.days.map(day => {
+          return {
+            date: day.date,
+            summary: day.summary,
+            time: day.time
+          };
+        })
+      };
+    });
+
+    console.log(browserActivityData);
+  
+    // axios.post(backendUrl, browserActivityData)
+    //   .then(response => console.log("Data sent successfully:", response.data))
+    //   .catch(error => console.error("Error sending data:", error));
+  }
+  

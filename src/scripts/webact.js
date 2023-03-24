@@ -122,6 +122,12 @@ document.addEventListener('DOMContentLoaded', function () {
             window.open(chrome.runtime.getURL('options.html'));
         }
     });
+
+    document.getElementById("btnSendData").addEventListener("click", function () {
+        console.log("button clicked here");
+        chrome.runtime.sendMessage({ action: "sendBrowserActivityData" });
+    });
+    
 });
 
 firstInitPage();
@@ -557,3 +563,5 @@ function fillValuesForBlockWithInActiveDay(prefix, dayValue, timeValue, flag) {
         document.getElementById(prefix + 'Time').value = timeValue;
     }
 }
+
+
