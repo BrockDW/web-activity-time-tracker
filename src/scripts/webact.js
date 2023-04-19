@@ -87,34 +87,42 @@ document.addEventListener('DOMContentLoaded', function () {
         ui.setUIForToday();
         getDataFromStorage();
     });
+
     document.getElementById('donutChartBtn').addEventListener('click', function () {
         ui.setUIForDonutChart();
         getDataFromStorage();
     });
+
     document.getElementById('heatMapChartBtn').addEventListener('click', function () {
         ui.setUIForTimeChart();
         getTimeIntervalList();
     });
+
     document.getElementById('btnAll').addEventListener('click', function () {
         currentTypeOfList = TypeListEnum.All;
         ui.setUIForAll();
         getDataFromStorage();
     });
+
     document.getElementById('btnByDays').addEventListener('click', function () {
         currentTypeOfList = TypeListEnum.ByDays;
         ui.setUIForByDays(setting_range_days);
         getDataFromStorageByDays();
     });
+
     document.getElementById('statInActiveDayIcon').addEventListener('click', function () {
         fillBlockWithInActiveDay();
     });
+
     document.getElementById('statActiveDayIcon').addEventListener('click', function () {
         fillBlockWithActiveDay();
     });
+
     document.getElementById('closeHintBtn').addEventListener('click', function () {
         document.getElementById('hintForUsers').classList.add('hide');
         storage.saveValue(SETTINGS_SHOW_HINT, false);
     });
+
     document.getElementById('settings').addEventListener('click', function () {
         if (chrome.runtime.openOptionsPage) {
             chrome.runtime.openOptionsPage();
@@ -123,11 +131,16 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    document.getElementById("btnSendData").addEventListener("click", function () {
-        console.log("button clicked here");
+    document.getElementById('btnSendData').addEventListener('click', function () {
+        // Call a method from ui.js to handle the UI update
+        ui.setUIForSendData();
+    });
+
+    document.getElementById('btnSendDataToBackend').addEventListener('click', function () {
+        // Call a method from ui.js to handle the UI update
+
         chrome.runtime.sendMessage({ action: "sendBrowserActivityData" });
     });
-    
 });
 
 firstInitPage();
